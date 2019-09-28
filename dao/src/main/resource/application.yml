@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: lf950929
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create-drop
