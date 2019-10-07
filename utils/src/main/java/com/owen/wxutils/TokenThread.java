@@ -1,36 +1,26 @@
 package com.owen.wxutils;
 
-
 import com.owen.wxtoken.Access_Token;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TokenThread {
 
+public class TokenThread implements Runnable{
+    private static Access_Token access_token;
     //日志
     private static Logger log = LoggerFactory.getLogger(TokenThread.class);
-
-    //初始化token
-    public static Access_Token access_token;
-
     public static Access_Token getAccess_token() {
         return TokenThread.access_token;
     }
 
-    public static void setAccess_token(Access_Token access_token) {
-        TokenThread.access_token = access_token;
-    }
-
-
-    /*@Override
     public void run() {
         while (true) {
-            access_token = WeChatUtil.getaccess_token(appID, appsecret);
+            access_token = WeChatUtil.getaccess_token();
             try {
                 if (null != access_token) {
-                    log.info("获取access_token成功，有效时长{}秒 token:{}", access_token.getExpire_in(), access_token.getAccess_token());
+                    log.info("获取access_token成功，有效时长{}秒 token:{}", access_token.getExpireIn(), access_token.getAccessToken());
                     // 休眠7000秒
-                    Thread.sleep((Integer.valueOf(access_token.getExpire_in()).intValue() - 200) * 1000);
+                    Thread.sleep((access_token.getExpireIn() - 200) * 1000);
                 } else {
                     //如果access_Token为null，则60秒后再获取
                     Thread.sleep(60 * 1000);
@@ -46,5 +36,5 @@ public class TokenThread {
                 log.error("{}", e);
             }
         }
-    }*/
+    }
 }

@@ -7,9 +7,10 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class AppTest
     extends TestCase
 {
+
     /**
      * Create the test case
      *
@@ -33,6 +34,36 @@ public class AppTest
      */
     public void testApp()
     {
+
+        /*TokenThread tokenThread= new TokenThread();
+        tokenThread.run();*/
+      /*  String Access_tokenTime = WeChatUtil.getaccess_token().getAccess_token();
+        WeChatUtil.getJSApiTicket(Access_tokenTime);
+        String nonce_str = UUID.randomUUID().toString();;
+        String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+        String string1;
+        String signature = "";
+        string1 = "jsapi_ticket=" + JsapiTicketUtil.getJSApiTicket() +
+                "&noncestr=" + nonce_str +
+                "&timestamp=" + timestamp +
+                "&url=" + url;
+        System.out.println(string1);
+        try {
+            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+            crypt.reset();
+            crypt.update(string1.getBytes("UTF-8"));
+            signature = byteToHex(crypt.digest());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(Validation.checkSignature(signature,timestamp,nonce_str));*/
+       /*WeChatUtil weChatUtil = new WeChatUtil();
+       weChatUtil.getaccess_token();*/
+       //WeChatUtil.getJSApiTicket(WeChatUtil.getaccess_token().getAccess_token());
         assertTrue( true );
     }
+
+
 }

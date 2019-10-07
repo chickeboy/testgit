@@ -38,7 +38,6 @@ public class Validation {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-
         return result != null ? (result.equals(signature.toUpperCase())): false;
     }
 
@@ -60,8 +59,4 @@ public class Validation {
         String str = new String(temp);
         return str;
     }
-
-    
-
-
 }

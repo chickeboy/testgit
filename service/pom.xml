@@ -25,6 +25,11 @@
         </dependency>
         <dependency>
             <groupId>com.owen</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.owen</groupId>
             <artifactId>dao</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
