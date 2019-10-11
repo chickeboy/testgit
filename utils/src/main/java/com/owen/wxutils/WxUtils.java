@@ -19,7 +19,8 @@ public class WxUtils {
 
     //Access_tokenTime URL
     public static String token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+appID+"&secret="+appsecret;
-
+    //界面创建连接
+    public static String menu_url = " https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
     //网页授权链接
     public static String authorization = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx37b63deb17045620&redirect_uri=http://xiaozhu.natapp1.cc/SSM-WeChat/loginCode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 

@@ -1,12 +1,18 @@
 package com.owen.config;
 
-import com.owen.wxcontroller.LoginController;
+import com.owen.MenuUtils.CreateMenu;
+import com.owen.MenuUtils.PostMenu;
+import com.owen.service.access_tokenservice.Access_TokenService;
+import com.owen.wxcontroller.MenuController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 
 /**
@@ -20,6 +26,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
+@EnableScheduling
 @Order(value=1)
 public class MyApplicationRunner implements ApplicationRunner {
     //日志
@@ -27,6 +34,5 @@ public class MyApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args)  {
         logger.info("==服务启动后，初始化数据操作==");
-        new LoginController().entrance_token();
     }
 }

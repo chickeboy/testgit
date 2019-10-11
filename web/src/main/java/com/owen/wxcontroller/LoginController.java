@@ -2,7 +2,6 @@ package com.owen.wxcontroller;
 
 
 import com.owen.service.Message.MessageService;
-import com.owen.wxutils.TokenThread;
 import com.owen.wxutils.Validation;
 import com.owen.wxutils.WxUtils;
 import org.slf4j.Logger;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,21 +48,6 @@ public class LoginController {
         out.close();
     }
     /**
-     * 启动线程获取token
-     */
-    public void entrance_token() {
-        Logger log = LoggerFactory.getLogger(TokenThread.class);
-        log.info("微信 api appid:{}", WxUtils.appID);
-        log.info("微信 api appsecret:{}", WxUtils.appsecret);
-        // 未配置appid和appsecret时给出提示
-        if ("".equals(WxUtils.appID) || "".equals(WxUtils.appsecret)) {
-            log.error("appid and appsecret配置错误，请仔细检查！");
-        } else {
-            // 启动定时获取access_token的线程
-           new Thread(new TokenThread()).start();
-        }
-    }
-    /**
      * 消息类回复需要post
      *
      * @param request
@@ -92,6 +75,7 @@ public class LoginController {
             /*respXml = MessageService.dealRequest(request);
             out.print(respXml);*/
             respXml = MessageService.dealRequest(request);
+            System.out.println(respXml);
             out.print(respXml);
         }
         out.flush();

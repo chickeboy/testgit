@@ -134,6 +134,9 @@
             <classifier>jdk15</classifier><!-- jdk版本 -->
         </dependency>
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+    </dependencies>
+    <dependencyManagement>
+    <dependencies>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -145,6 +148,7 @@
             <version>1.16.22</version>
         </dependency>
     </dependencies>
+</dependencyManagement>
 
     <build>
         <plugins>

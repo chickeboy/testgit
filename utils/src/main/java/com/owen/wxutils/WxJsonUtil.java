@@ -1,6 +1,7 @@
 package com.owen.wxutils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.owen.user.Authorization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,7 +88,31 @@ public class WxJsonUtil {
         }
         return jsonObject;
     }
-
-
+    /**
+     * 获取网页授权凭证
+     * @param code
+     * @return
+     */
+    public static Authorization getOauth2AccessToken(String code){
+        Authorization authorization = null;
+        String  urlstr = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+WxUtils.appID+"&secret="+WxUtils.appsecret+"&code="+code+"&grant_type=authorization_code";
+        // 发起GET请求获取凭证
+        JSONObject jsonObject = httpsRequest(urlstr, "GET", null);
+        if (null != jsonObject) {
+            try {
+                authorization = new Authorization();
+                authorization.setAccessToken(jsonObject.getString("access_token"));
+                authorization.setExpiresIn(jsonObject.getIntValue("expires_in"));
+                authorization.setRefreshToken(jsonObject.getString("refresh_token"));
+                authorization.setOpenId(jsonObject.getString("openid"));
+                authorization.setScope(jsonObject.getString("scope"));
+            } catch (Exception e) {
+                int errorCode = jsonObject.getIntValue("errcode");
+                String errorMsg = jsonObject.getString("errmsg");
+                log.error("获取网页授权凭证失败 errcode:{} errmsg:{}", errorCode, errorMsg);
+            }
+        }
+        return authorization;
+    }
 
 }

@@ -1,6 +1,6 @@
-package com.owen.wxutils;
+package com.owen.messageUtils;
 
-import com.owen.message.TextMessage;
+import com.owen.message.*;
 import com.thoughtworks.xstream.XStream;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -114,5 +114,54 @@ public class MessageUtil {
         String xml = xStream.toXML(textMessage);
         System.out.println("响应所转换的XML：" + xml);
         return xml;
+    }
+    /**
+     * 将图片消息对象转换成XML格式
+     * params:imageMessage
+     * return:xml
+     */
+    public static String messageToXml(ImageMessage imageMessage) {
+        xStream.alias("xml", imageMessage.getClass());
+        return xStream.toXML(imageMessage);
+    }
+
+    /**
+     * 将语音消息对象转换成XML格式
+     * params:voiceMessage
+     * return:xml
+     */
+    public static String messageToXml(VoiceMessage voiceMessage) {
+        xStream.alias("xml", voiceMessage.getClass());
+        return xStream.toXML(voiceMessage);
+    }
+
+    /**
+     * 将视频消息对象转换成XML格式
+     * params:videoMessage
+     * return:xml
+     */
+    public static String messageToXml(VideoMessage videoMessage) {
+        xStream.alias("xml", videoMessage.getClass());
+        return xStream.toXML(videoMessage);
+    }
+
+    /**
+     * 将音乐消息对象转换成XML格式
+     * params:musicMessage
+     * return:xml
+     */
+    public static String messageToXml(MusicMessage musicMessage) {
+        xStream.alias("xml", musicMessage.getClass());
+        return xStream.toXML(musicMessage);
+    }
+
+    /**
+     * 将图文消息对象转换成XML格式
+     * params:newsMessage
+     * return:xml
+     */
+    public static String messageToXml(NewsMessage newsMessage) {
+        xStream.processAnnotations(newsMessage.getClass());
+        return xStream.toXML(newsMessage);
     }
 }

@@ -2,7 +2,8 @@ package com.owen.service.Message;
 
 
 import com.owen.message.TextMessage;
-import com.owen.wxutils.MessageUtil;
+import com.owen.messageUtils.CreateMessage;
+import com.owen.messageUtils.MessageUtil;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,7 +22,7 @@ public class MessageService {
         //响应的XML串
         String respXml;
         //默认返回的文本消息内容
-        String respContent;
+        String respContent = "";
         //调用parseXml方法解析请求消息
         requestMap = MessageUtil.parseXml(request);
         //发送方账号
@@ -43,47 +44,50 @@ public class MessageService {
         switch (MsgType) {
             //请求消息类型：文本
             case MessageUtil.REQ_MESSAGE_TYPE_TEXT:
-                respContent = "文本消息";
+                respXml = textMessage("文本消息",fromUserName,toUserName);
                 break;
             //请求消息类型：图片
             case MessageUtil.REQ_MESSAGE_TYPE_IMAGE:
-                respContent = "图片消息";
+                respXml = textMessage("图片消息",fromUserName,toUserName);
                 break;
             //请求消息类型：语音
             case MessageUtil.REQ_MESSAGE_TYPE_VOICE:
-                respContent = "语音消息";
+                respXml = textMessage("语音消息",fromUserName,toUserName);
                 break;
             //请求消息类型：视频
             case MessageUtil.REQ_MESSAGE_TYPE_VIDEO:
-                respContent = "视频消息";
+                respXml = textMessage("视频消息",fromUserName,toUserName);
                 break;
             //请求消息类型：地理位置
             case MessageUtil.REQ_MESSAGE_TYPE_LOCATION:
-                respContent = "位置消息";
+                respXml = textMessage("位置消息",fromUserName,toUserName);
                 break;
             //请求消息类型：链接
             case MessageUtil.REQ_MESSAGE_TYPE_LINK:
-                respContent = "连接消息";
+                respXml = textMessage("连接消息",fromUserName,toUserName);
                 break;
             //请求消息类型：事件推送
             case MessageUtil.REQ_MESSAGE_TYPE_EVENT:
-                respContent = getEventMessage();
+                respXml = getEventMessage();
                 break;
             default:
-                respContent = "错误的消息类型";
+                respXml = textMessage("错误的消息类型",fromUserName,toUserName);
         }
         //事件类型
-        TextMessage textMessage = new TextMessage(toUserName, fromUserName, "text", respContent, requestMap.get("MsgId"));
-        respXml = MessageUtil.messageToXml(textMessage);
         return respXml;
     }
-
+    public static  String textMessage(String str,String fromUserName,String toUserName){
+        TextMessage textMessage = new TextMessage(toUserName, fromUserName, "text", str, requestMap.get("MsgId"));
+        return MessageUtil.messageToXml(textMessage);
+    }
     public static String getEventMessage() {
-        String str;
+        String str = null;
         String eventType = requestMap.get("Event");
         switch (eventType) {
             //事件类型：SUBSCRIBE订阅
             case MessageUtil.EVENT_TYPE_SUBSCRIBE:
+                str = MessageUtil.messageToXml(CreateMessage.createNewsMessage(requestMap));
+                break;
                 //事件类型：unsubscribe(取消订阅)
             case MessageUtil.EVENT_TYPE_UNSUBSCRIBE:
                 //事件类型：scan(用户已关注时的扫描带参数的二维码)
@@ -92,7 +96,9 @@ public class MessageService {
             case MessageUtil.EVENT_TYPE_LOCATION:
                 //事件类型：CLICK(自定义菜单)
             case MessageUtil.EVENT_TYPE_CLICK:
+              str = MessageUtil.messageToXml(CreateMessage.createNewsMessage(requestMap));
+              break;
         }
-        return "欢迎来到测试号";
+        return str;
     }
 }
